@@ -24,6 +24,15 @@ public class MemberServiceTests {
         String nickname = "tester";
 
         memberService.join(username, password, email, nickname);
+    }
+
+    void t2 () {
+        String username = "user1";
+        String password = "1234";
+        String email = "test@test.com";
+        String nickname = "tester";
+
+        memberService.join(username, password, email, nickname);
 
     }
 }
