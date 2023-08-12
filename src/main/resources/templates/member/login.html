@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorate="~{/layout/layout}">
-<div  layout:fragment="content"  class="container">
-    <div class="row">
-        <div class="col-sm-6 offset-sm-3">
-            <div class="card">
+<section layout:fragment="content" class="section-signin t-flex-1 t-flex t-items-center t-justify-center">
+        <div class="card t-w-full t-max-w-screen-md mx-4">
                 <div class="card-header">로그인</div>
                 <div class="card-body">
                     <form th:action="@{/member/login}" method="post">
@@ -16,10 +14,9 @@
                             <input type="password" class="form-control" id="password" name="password">
                         </div>
                         <button type="submit" class="btn btn-primary">로그인</button>
+                        <a href="#">카카오로 로그인</a>
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+</section>
 </html>
