@@ -12,23 +12,23 @@
           <img class="t-w-full t-max-w-[300px]" src="https://i.imgur.com/PVsCFy1.png" alt="상품사진">
         </li>
         <li class="list-group-item">
-          번호 : <span th:text="${product.id}" class="badge bg-primary"></span>
+          번호 : <span th:text="${question.product.id}" class="badge bg-primary"></span>
         </li>
         <li class="list-group-item">
-          상품명 : <span th:text="${product.name}" class="t-font-bold"></span>
+          상품명 : <span th:text="${question.product.name}" class="t-font-bold"></span>
         </li>
         <li class="list-group-item">
-          가격 : <span th:text="${product.price}" class="t-font-bold"></span>원
+          가격 : <span th:text="${question.product.price}" class="t-font-bold"></span>원
         </li>
 <!--  TODO: 마켓정보 추가      -->
 <!--        <li class="list-group-item">-->
 <!--          마켓 : <span th:text="" class="badge bg-primary"></span>-->
 <!--        </li>-->
         <li class="list-group-item">
-          등록날짜 : <span th:text="${#temporals.format(product.createDate, 'yyyy-MM-dd HH:mm')}" class="badge bg-secondary"></span>
+          등록날짜 : <span th:text="${#temporals.format(question.product.createDate, 'yyyy-MM-dd HH:mm')}" class="badge bg-secondary"></span>
         </li>
-        <li th:if="${product.modifyDate != null}"class="list-group-item">
-          수정날짜 : <span th:text="${#temporals.format(product.modifyDate, 'yyyy-MM-dd HH:mm')}" class="badge bg-secondary"></span>
+        <li th:if="${question.product.modifyDate != null}"class="list-group-item">
+          수정날짜 : <span th:text="${#temporals.format(question.product.modifyDate, 'yyyy-MM-dd HH:mm')}" class="badge bg-secondary"></span>
         </li>
       </ul>
     </div>

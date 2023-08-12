@@ -38,15 +38,12 @@ public class QuestionController {
     @GetMapping("/modify/{id}")
     public String modify(@PathVariable Long id, Model model, Principal principal) {
         Question question = this.questionService.getQuestion(id);
+
         if (!question.getMember().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
 
-        long productId = question.getProduct().getId();
-        Product product = this.productService.getProduct(productId);
-
         model.addAttribute("question", question);
-        model.addAttribute("product", product);
 
         return "question/modify";
     }
