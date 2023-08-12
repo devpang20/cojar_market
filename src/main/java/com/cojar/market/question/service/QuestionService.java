@@ -25,7 +25,23 @@ public class QuestionService {
             q.setCreateDate(LocalDateTime.now());
             this.questionRepository.save(q);
     }
+
+    public Question getQuestion(Long id) {
+        Optional<Question> question = this.questionRepository.findById(id);
+        if (question.isPresent()) {
+            return  question.get();
+        } else {
+            throw new RuntimeException("member not found");
+        }
+
+    }
     public List<Question> getList() {
         return this.questionRepository.findAll();
+    }
+
+    public void modify(Question  question, String content) {
+        question.setContent(content);
+        question.setModifyDate(LocalDateTime.now());
+        this.questionRepository.save(question);
     }
 }

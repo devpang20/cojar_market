@@ -12,13 +12,7 @@
                     <img class="t-w-full t-max-w-[300px]" src="https://i.imgur.com/PVsCFy1.png" alt="상품이미지">
                 </li>
                 <li class="list-group-item">
-                    번호 : <span class="badge bg-primary">123</span>
-                </li>
-                <li class="list-group-item">
-                    등록날짜 : <span class="badge bg-secondary">2023-03-11</span>
-                </li>
-                <li class="list-group-item">
-                    수정날짜 : <span class="badge bg-secondary">2023-03-11</span>
+                    번호 : <span th:text="${product.id}" class="badge bg-primary"></span>
                 </li>
                 <li class="list-group-item">
                     상품명 : <span th:text="${product.name}" class="t-font-bold"></span>
@@ -26,11 +20,17 @@
                 <li class="list-group-item">
                     가격 : <span  th:text="${product.price}" class="t-font-bold"></span>원
                 </li>
+<!--  TODO: 마켓정보 추가      -->
+<!--                <li class="list-group-item">-->
+<!--                    마켓 : <span class="badge bg-primary"></span>-->
+<!--                </li>-->
                 <li class="list-group-item">
-                    마켓 : <span class="badge bg-primary">22</span>
+                    등록날짜 : <span th:text="${#temporals.format(product.createDate, 'yyyy-MM-dd HH:mm')}" class="badge bg-secondary"></span>
+                </li>
+                <li class="list-group-item" th:if="${product.modifyDate != null}">
+                    수정날짜 : <span th:text="${#temporals.format(product.modifyDate, 'yyyy-MM-dd HH:mm')}" class="badge bg-secondary"></span>
                 </li>
             </ul>
-
         </div>
 
         <div class="card t-mt-[30px]">
@@ -66,10 +66,10 @@
                 <li th:each="question : ${questionList}" class="list-group-item">
                     <span th:text="${question.id}" class="badge bg-secondary"></span>
                     <span th:text="${question.content}"></span>
-                    <a href="#" class="btn btn-sm btn-warning"
+                    <a th:href="@{|/question/modify/${question.id}|}"
+                       class="btn btn-sm btn-primary">수정</a>
+                    <a href="@{|/question/delete/${question.id}|}" class="btn btn-sm btn-warning"
                        onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) return false;">삭제</a>
-                    <a href="#"
-                       class="btn btn-sm btn-secondary">수정</a>
                 </li>
             </ul>
         </div>
