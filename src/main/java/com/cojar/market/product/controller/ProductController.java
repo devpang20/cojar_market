@@ -2,6 +2,8 @@ package com.cojar.market.product.controller;
 
 import com.cojar.market.product.entity.Product;
 import com.cojar.market.product.service.ProductService;
+import com.cojar.market.question.entity.Question;
+import com.cojar.market.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
     private final ProductService productService;
+    private final QuestionService questionService;
     @GetMapping("/list")
     public String list(Model model) {
         List<Product> productList = productService.getList();
@@ -28,6 +31,9 @@ public class ProductController {
 
         Product product = productService.getProduct(id);
         model.addAttribute("product", product);
+
+        List<Question> questionList = questionService.getList();
+        model.addAttribute("questionList",  questionList);
 
         return "product/detail";
     }

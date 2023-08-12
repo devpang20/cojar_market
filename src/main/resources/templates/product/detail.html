@@ -46,10 +46,6 @@
                 >
                     <div class="mb-3">
                         <div class="mb-3">
-                            <label for="subject" class="form-label">제목</label>
-                            <input type="text" name="title" id="subject" class="form-control">
-                        </div>
-                        <div class="mb-3">
                             <label for="content" class="form-label">내용</label>
                             <textarea name="content" id="content" class="form-control" rows="10"></textarea>
                         </div>
@@ -67,9 +63,9 @@
                 질문리스트
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <span class="badge bg-secondary">질문 ID</span>
-                    질문 내용
+                <li th:each="question : ${questionList}" class="list-group-item">
+                    <span th:text="${question.id}" class="badge bg-secondary"></span>
+                    <span th:text="${question.content}"></span>
                     <a href="#" class="btn btn-sm btn-warning"
                        onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) return false;">삭제</a>
                     <a href="#"

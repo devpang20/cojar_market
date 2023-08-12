@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,13 +17,15 @@ public class QuestionService {
 
     private final QuestionRepository questionRepository;
 
-    public void create(Product product, Member member, String title, String content) {
+    public void create(Product product, Member member, String content) {
         Question q = new Question();
             q.setMember(member);
             q.setProduct(product);
-            q.setTitle(title);
-            q.setTitle(content);
+            q.setContent(content);
             q.setCreateDate(LocalDateTime.now());
             this.questionRepository.save(q);
+    }
+    public List<Question> getList() {
+        return this.questionRepository.findAll();
     }
 }

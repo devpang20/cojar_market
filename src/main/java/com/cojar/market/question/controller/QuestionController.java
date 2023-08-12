@@ -21,10 +21,10 @@ public class QuestionController {
     private final MemberService memberService;
 
     @PostMapping("/create/{id}")
-    public String create(@PathVariable Long id, Principal principal, @RequestParam String title, @RequestParam String content) {
+    public String create(@PathVariable Long id, Principal principal, @RequestParam String content) {
         Product product = this.productService.getProduct(id);
         Member member = this.memberService.findByUsername(principal.getName());
-        this.questionService.create(product, member, title, content);
+        this.questionService.create(product, member, content);
 
         return String.format("redirect:/product/detail/%s", id);
     }
