@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -49,6 +48,15 @@ public class QuestionController {
         Question question = this.questionService.getQuestion(id);
         long productId = question.getProduct().getId();
         this.questionService.modify(question, content);
+
+        return String.format("redirect:/product/detail/%s", productId);
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        Question question = this.questionService.getQuestion(id);
+        long productId = question.getProduct().getId();
+        this.questionService.delete(question);
 
         return String.format("redirect:/product/detail/%s", productId);
     }

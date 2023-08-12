@@ -32,9 +32,6 @@ public class ProductController {
         Product product = productService.getProduct(id);
         model.addAttribute("product", product);
 
-        List<Question> questionList = questionService.getList();
-        model.addAttribute("questionList",  questionList);
-
         return "product/detail";
     }
 }
