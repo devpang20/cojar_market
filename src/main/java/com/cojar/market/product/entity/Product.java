@@ -1,6 +1,7 @@
 package com.cojar.market.product.entity;
 
 import com.cojar.market.base.entity.BaseEntity;
+import com.cojar.market.cart.entity.Cart;
 import com.cojar.market.market.entity.Market;
 import com.cojar.market.question.entity.Question;
 import jakarta.persistence.*;
@@ -24,4 +25,6 @@ public class Product extends BaseEntity {
     private Market market;
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private List<Question> questionList;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    private List<Cart> cartList;
 }
