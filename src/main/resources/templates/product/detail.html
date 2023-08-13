@@ -29,10 +29,10 @@
 <!--                    <span class="badge bg-primary"></span>-->
 <!--                </li> -->
                 <li class="list-group-item">
-                    등록날짜 : <span th:text="${#temporals.format(product.createDate, 'yyyy-MM-dd HH:mm')}" class="badge bg-secondary"></span>
+                    등록날짜 <span th:text="${#temporals.format(product.createDate, 'yyyy-MM-dd HH:mm')}" class="badge bg-secondary"></span>
                 </li>
                 <li class="list-group-item" th:if="${product.modifyDate != null}">
-                    수정날짜 : <span th:text="${#temporals.format(product.modifyDate, 'yyyy-MM-dd HH:mm')}" class="badge bg-secondary"></span>
+                    수정날짜 <span th:text="${#temporals.format(product.modifyDate, 'yyyy-MM-dd HH:mm')}" class="badge bg-secondary"></span>
                 </li>
             </ul>
         </div>

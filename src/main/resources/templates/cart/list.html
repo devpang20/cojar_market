@@ -3,33 +3,71 @@
 <section layout:fragment="content" class="section-cart-item-list">
     <div class="container">
         <h1 class="t-text-[1.2rem] t-font-bold">장바구니</h1>
-        <div class="t-mt-[10px] t-overflow-x-auto t-whitespace-nowrap">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th><input type="checkbox"></th>
-                    <th>이미지</th>
-                    <th>상품명</th>
-                    <th>가격</th>
-                    <th>구매/삭제</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="cartItem : ${cartList}">
-                    <td><input type="checkbox"></td>
-                    <td><img class="t-w-[50px] t-h-[50px] sm:t-w-[150px] sm:t-h-[150px] t-object-cover rounded"
-                             src="https://i.imgur.com/PVsCFy1.png" alt="상품이미지"></td>
-                    <td th:text="${cartItem.product.name}"></td>
-                    <td>
-                        <span th:text="@{|\ ${cartItem.product.price}|}"></span>
-                    </td>
-                    <td>
+        <div class="t-mt-[10px]">
+            <input type="checkbox" class="cart-items__checkbox-all" onchange="CartItems__allCheckBoxCheckChanged(this)">
+        </div>
+        <ul th:each="cartItem : ${cartList}">
+            <li class="t-border-[color:#989898] t-border-0 t-border-t t-border-solid t-py-[20px]">
+                <div class="t-flex">
+                    <input th:data-id="${cartItem.id}" type="checkbox" class="cart-items__checkbox-item" onchange="CartItems__itemCheckeChanged(this)">
+                    <a href="#">
+                        <img class="t-flex-shrink-0 t-ml-2 t-w-[80px] t-h-[80px] sm:t-w-[150px] sm:t-h-[150px] t-object-cover rounded"
+                             src="https://i.imgur.com/PVsCFy1.png" width="100px" height="100px" alt="상품사진">
+                    </a>
+                    <div class="t-ml-2">
+                        <a href="" th:text="${cartItem.product.name}"></a>
+                        <div th:text="@{|\ ${cartItem.product.price} 원|}"></div>
                         <a href="" type="button" class="btn btn-primary">구매</a>
                         <a href="#" type="button" class="btn btn-danger">삭제</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
+    <script layout:fragment="script" type='text/javascript'>
+    function CartItemModifyForm__updateQuantity(el, add) {
+        const $form = $(el).closest('form');
+
+        const $salePrice = $form.find('.cart-item-modify-form__sale-price');
+        const productSalePrice = parseInt($salePrice.attr('data-sale-price'));
+        const $inputNumber = $form.find('input[type="number"]');
+        const oldQuantity = parseInt($inputNumber.val());
+        let newQuantity = oldQuantity + add;
+
+        if ( newQuantity > 100 ) {
+            newQuantity = 100;
+        }
+        else if ( newQuantity < 1 ) {
+            newQuantity = 1
+        }
+
+        $inputNumber.val(newQuantity);
+        $salePrice.text((productSalePrice * newQuantity).price_format());
+    }
+
+    function CartItems__allCheckBoxCheckChanged(el) {
+        if ( el.checked ) {
+            $('.cart-items__checkbox-item:not(:checked)').prop('checked', true);
+        }
+        else {
+            $('.cart-items__checkbox-item:checked').prop('checked', false);
+        }
+    }
+
+    function CartItems__itemCheckeChanged(el) {
+        const allCheckBoxNewCheckStatus = $('.cart-items__checkbox-item:not(:checked)').length == 0;
+        $('.cart-items__checkbox-all').prop('checked', allCheckBoxNewCheckStatus);
+    }
+
+    function CartItems__deleteChecked() {
+        const cartItemIds = $('.cart-items__checkbox-item:checked')
+            .map((i, el) => parseInt($(el).attr('data-id')))
+            .toArray();
+
+        CartItemsDeleteForm.ids.value = cartItemIds;
+        CartItemsDeleteForm.submit();
+    }
+
+</script>
 </section>
+</html>
