@@ -4,9 +4,11 @@ import com.cojar.market.member.entity.Member;
 import com.cojar.market.member.service.MemberService;
 import com.cojar.market.product.entity.Product;
 import com.cojar.market.product.service.ProductService;
+import com.cojar.market.question.entity.Question;
 import com.cojar.market.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -27,5 +29,22 @@ public class QuestionController {
         this.questionService.create(product, member, content);
 
         return String.format("redirect:/product/detail/%s", id);
+    }
+
+    @GetMapping("/modify/{id}")
+    public String modify(@PathVariable Long id, Model model) {
+        Question question = this.questionService.getQuestion(id);
+
+        model.addAttribute("question", question);
+        return "question/modify";
+    }
+
+    @PostMapping("/modify/{id}")
+    public String modifyContent(@PathVariable Long id, @RequestParam String content, Principal principal) {
+        Question question = this.questionService.getQuestion(id);
+        this.questionService.modify(question, content);
+        long productId = question.getProduct().getId();
+
+        return String.format("redirect:/product/detail/%s", productId);
     }
 }
