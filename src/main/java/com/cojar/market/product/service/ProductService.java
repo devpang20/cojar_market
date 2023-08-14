@@ -3,25 +3,45 @@ package com.cojar.market.product.service;
 import com.cojar.market.product.entity.Product;
 import com.cojar.market.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
 public class ProductService {
+    @Value("${custom.genFileDirPath}")
+    private String genFileDirPath;
     private final ProductRepository productRepository;
 
-    public void create(String name, int price) {
+    public void create(String name, String description, int price, MultipartFile thumbnail) {
+        String thumbnailRelPath = "product/" + UUID.randomUUID().toString() + ".png";
+        File thumbnailFile = new File(genFileDirPath + "/" + thumbnailRelPath);
+
+        thumbnailFile.mkdirs();
+
+        try {
+            thumbnail.transferTo(thumbnailFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         Product product = Product.builder()
                 .name(name)
+                .description(description)
                 .price(price)
+                .thumbnailImg(thumbnailRelPath)
                 .build();
         this.productRepository.save(product);
     }

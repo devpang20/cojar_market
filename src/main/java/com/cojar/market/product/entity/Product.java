@@ -2,7 +2,7 @@ package com.cojar.market.product.entity;
 
 import com.cojar.market.base.entity.BaseEntity;
 import com.cojar.market.cart.entity.Cart;
-import com.cojar.market.market.entity.Market;
+import com.cojar.market.member.entity.Member;
 import com.cojar.market.question.entity.Question;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -26,9 +26,10 @@ public class Product extends BaseEntity {
     private int price;
     private int hitCount;
     private String isActive;
-    private String thumbnail_img;
+    private String thumbnailImg;
+
     @ManyToOne
-    private Market market;
+    private Member member;
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private List<Question> questionList;
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)

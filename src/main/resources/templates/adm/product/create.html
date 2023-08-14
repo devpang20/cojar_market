@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html layout:decorate="~{adm/layout/adm_layout}">
+<div class="container" layout:fragment="content">
+  <section class="my-3 border-bottom pb-2">
+    <h5 class="my-3 border-bottom pb-2">컨텐츠 등록</h5>
+    <form method="post" th:action="@{/adm/product/create}" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label" for="name">제목</label>
+        <input class="form-control" id="name" name="name" type="text">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">설명</label>
+        <textarea class="form-control" id="description" name="description" rows="10"></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="price">가격</label>
+        <input class="form-control" id="price" name="price" type="number">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="thumbnail">썸네일</label>
+        <input class="form-control" id="thumbnail" name="thumbnail" type="file" accept="image/png, image/gif, image/jpeg">
+      </div>
+      <input class="btn btn-primary my-2" type="submit" value="저장하기">
+    </form>
+  </section>
+</div>
+</html>
