@@ -1,4 +1,4 @@
-package com.cojar.market.security;
+package com.cojar.market.security.service;
 
 import com.cojar.market.member.entity.Member;
 import com.cojar.market.member.repository.MemberRepository;
