@@ -7,7 +7,6 @@ import com.cojar.market.product.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -20,11 +19,11 @@ public class CartService {
     }
 
     public void add (Product product, Member member) {
-        Cart c = new Cart();
-            c.setProduct(product);
-            c.setMember(member);
-            c.setCreateDate(LocalDateTime.now());
-        this.cartRepository.save(c);
+        Cart cart = Cart.builder()
+                .product(product)
+                .member(member)
+                .build();
+        this.cartRepository.save(cart);
     }
 
 }

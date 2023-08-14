@@ -6,12 +6,14 @@ import com.cojar.market.product.entity.Product;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Entity
-@Setter
 @Getter
+@NoArgsConstructor
+@SuperBuilder(toBuilder = true)
 @ToString
 public class Question extends BaseEntity {
     private String content;

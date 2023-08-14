@@ -8,20 +8,22 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Entity
 @Getter
-@Setter
+@SuperBuilder
+@NoArgsConstructor
 public class Member extends BaseEntity {
     @Column(unique = true)
     private String username;
     private String password;
     private String nickname;
     private String email;
+    private  String level;
     private String isActive;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
