@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,9 +18,10 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public void create(String name, int price) {
+    public void create(String name, String description, int price) {
         Product product = Product.builder()
                 .name(name)
+                .description(description)
                 .price(price)
                 .build();
         this.productRepository.save(product);
