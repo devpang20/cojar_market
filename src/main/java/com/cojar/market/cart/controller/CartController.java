@@ -1,6 +1,6 @@
 package com.cojar.market.cart.controller;
 
-import com.cojar.market.cart.entity.Cart;
+import com.cojar.market.cart.entity.CartItem;
 import com.cojar.market.cart.service.CartService;
 import com.cojar.market.member.entity.Member;
 import com.cojar.market.member.service.MemberService;
@@ -10,7 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.List;
@@ -27,7 +30,7 @@ public class CartController {
     @GetMapping("list")
     public String list (Principal principal, Model model) {
         Member member = memberService.findByUsername(principal.getName());
-        List<Cart> cartList = this.cartService.getList(member);
+        List<CartItem> cartList = this.cartService.getList(member);
         model.addAttribute("cartList", cartList);
 
         return "cart/list";

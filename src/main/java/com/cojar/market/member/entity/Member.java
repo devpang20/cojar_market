@@ -1,7 +1,7 @@
 package com.cojar.market.member.entity;
 
 import com.cojar.market.base.entity.BaseEntity;
-import com.cojar.market.cart.entity.Cart;
+import com.cojar.market.cart.entity.CartItem;
 import com.cojar.market.product.entity.Product;
 import com.cojar.market.question.entity.Question;
 import jakarta.persistence.CascadeType;
@@ -35,5 +35,5 @@ public class Member extends BaseEntity {
     private List<Question> questionList;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
-    private  List<Cart> cartList;
+    private  List<CartItem> cartList;
 }

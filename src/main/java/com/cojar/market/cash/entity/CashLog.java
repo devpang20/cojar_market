@@ -1,23 +1,21 @@
-package com.cojar.market.cart.entity;
+package com.cojar.market.cash.entity;
 
 import com.cojar.market.base.entity.BaseEntity;
 import com.cojar.market.member.entity.Member;
-import com.cojar.market.product.entity.Product;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import static jakarta.persistence.FetchType.LAZY;
+
 @Entity
-@Getter
 @SuperBuilder
-public class Cart extends BaseEntity {
-
-    @ManyToOne
+@NoArgsConstructor
+@Getter
+public class CashLog extends BaseEntity {
+    @ManyToOne(fetch = LAZY)
     private Member member;
-
-    @ManyToOne
-    private Product product;
-
+    private long price;
 }
