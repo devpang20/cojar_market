@@ -6,10 +6,12 @@ import com.cojar.market.product.entity.Product;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @SuperBuilder
 public class CartItem extends BaseEntity {
 
