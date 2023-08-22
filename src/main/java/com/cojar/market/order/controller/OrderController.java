@@ -1,5 +1,8 @@
 package com.cojar.market.order.controller;
 
+import com.cojar.market.product.entity.Product;
+import com.cojar.market.product.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,14 +20,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/order")
 public class OrderController {
     @Value("${custom.paymentSecretKey}")
     private String paymentSecretKey;
+    private final ProductService productService;
 
     @GetMapping("/detail")
-    public String detail() {
+    public String detail(Model model, @RequestParam Long productId) {
+        Product product = this.productService.getProduct(productId);
+
+        model.addAttribute("product", product);
         return "order/detail";
     }
 

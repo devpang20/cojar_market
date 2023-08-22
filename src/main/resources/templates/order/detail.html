@@ -1,10 +1,66 @@
 <!DOCTYPE html>
 <html layout:decorate="~{/layout/layout}">
 <section layout:fragment="content" class="t-flex-1 t-flex t-justify-center t-items-center">
-  <h1 class="t-text-[20px] t-font-bold">주문상세 페이지</h1>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        주문 상세정보
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <img class="t-w-full t-max-w-[300px] t-rounded" th:src="@{|/gen/${product.thumbnailImg}|}" alt="상품이미지">
+        </li>
+        <li class="list-group-item">
+          <span class="t-w-16 t-inline-block">번호</span>
+          <span th:text="${product.id}" class="badge bg-primary"></span>
+        </li>
+        <li class="list-group-item">
+          <span class="t-w-16 t-inline-block">상품명</span>
+          <span th:text="${product.title}" class="t-font-bold"></span>
+        </li>
+        <li class="list-group-item">
+          <span class="t-w-16 t-inline-block">가격</span>
+          <span th:text="${product.price}" class="t-font-bold"></span>원
+        </li>
+      </ul>
+    </div>
 
-  <h1>주문 내역</h1>
+  <button  onclick="pay();" class="btn btn-outline-primary">결제</button>
+  <script src="https://js.tosspayments.com/v1"></script>
+  <script th:inline="javascript">
+    let amount = /*[[ ${product.price}]]*/;
+    let orderName = /*[[ ${product.title}]]*/;
 
+    let tossPayments = TossPayments("test_ck_oeqRGgYO1r50AM42j4oVQnN2Eyaz"); // 테스트 클라언트 키
+    let path = "/order/";
+    let successUrl = window.location.origin + path + "success";
+    let failUrl = window.location.origin + path + "fail";
+    let callbackUrl = window.location.origin + path + "va_callback";
+    let orderId = new Date().getTime();
 
+    function pay() {
+        const method = "카드";
+        const requestJson = {
+            "amount": amount,
+            "orderId": "sample-" + orderId,
+            "orderName": orderName,
+            "successUrl": successUrl,
+            "failUrl": failUrl,
+            "cardCompany": null,
+            "cardInstallmentPlan": null,
+            "maxCardInstallmentPlan": null,
+            "useCardPoint": false,
+            "customerName": "박토스",
+            "customerEmail": null,
+            "customerMobilePhone": null,
+            "taxFreeAmount": null,
+            "useInternationalCardOnly": false,
+            "flowMode": "DEFAULT",
+            "discountCode": null,
+            "appScheme": null
+        }
+        tossPayments.requestPayment(method, requestJson)
+    }
+</script>
 </section>
 </html>
