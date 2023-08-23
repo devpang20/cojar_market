@@ -1,11 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<a th:href="@{/adm/product/create}" class="btn btn-primary">컨텐츠 등록</a>
-
-</body>
+<html layout:decorate="~{/layout/layout}">
+<section layout:fragment="content" class="t-flex-1 t-flex t-justify-center t-items-center">
+    <a th:href="@{/adm/product/create}" class="btn btn-primary">컨텐츠 등록</a>
+    <a th:href="@{/adm/rebate/makeData}" class="btn btn-primary">정산 </a>
+</section>
 </html>

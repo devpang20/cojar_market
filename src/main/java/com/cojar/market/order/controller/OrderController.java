@@ -1,5 +1,8 @@
 package com.cojar.market.order.controller;
 
+import com.cojar.market.cash.service.CashService;
+import com.cojar.market.member.entity.Member;
+import com.cojar.market.member.service.MemberService;
 import com.cojar.market.product.entity.Product;
 import com.cojar.market.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +22,7 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 import java.util.Base64;
 @Controller
 @RequiredArgsConstructor
@@ -28,6 +32,10 @@ public class OrderController {
     private String paymentSecretKey;
 
     private final ProductService productService;
+
+    private final CashService cashService;
+
+    private  final MemberService memberService;
 
     @GetMapping("/detail")
     public String detail(Model model, @RequestParam Long productId) {
@@ -41,7 +49,9 @@ public class OrderController {
             Model model,
             @RequestParam(value = "orderId") String orderId,
             @RequestParam(value = "amount") Integer amount,
-            @RequestParam(value = "paymentKey") String paymentKey) throws Exception {
+            @RequestParam(value = "paymentKey") String paymentKey,
+            Principal principal
+    ) throws Exception {
 
         Base64.Encoder encoder = Base64.getEncoder();
         byte[] encodedBytes = encoder.encode(paymentSecretKey.getBytes("UTF-8"));
@@ -91,6 +101,13 @@ public class OrderController {
             model.addAttribute("code", (String) jsonObject.get("code"));
             model.addAttribute("message", (String) jsonObject.get("message"));
         }
+
+//        this.orderService.findByid();
+
+
+        Member member = this.memberService.findByUsername( principal.getName());
+
+        this.cashService.addCashLog(member, amount);
 
         return "order/success";
     }
