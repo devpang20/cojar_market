@@ -1,5 +1,6 @@
 package com.cojar.market.order.controller;
 
+import com.cojar.market.order.service.OrderService;
 import com.cojar.market.product.entity.Product;
 import com.cojar.market.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class OrderController {
     @Value("${custom.paymentSecretKey}")
     private String paymentSecretKey;
     private final ProductService productService;
+    private final OrderService orderService;
 
     @GetMapping("/detail")
     public String detail(Model model, @RequestParam Long productId) {
@@ -92,6 +94,9 @@ public class OrderController {
             model.addAttribute("code", (String) jsonObject.get("code"));
             model.addAttribute("message", (String) jsonObject.get("message"));
         }
+
+
+//        this.orderService.save();
 
         return "order/success";
     }
